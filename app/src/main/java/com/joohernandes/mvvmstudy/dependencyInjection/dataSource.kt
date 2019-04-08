@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 val dataSource = module{
 
-    single { createWebService<DataService>(getProperty(URL)) }
+    single { createWebService<DataService>("https://pokeapi.co/api/v2/") }
 
 }
 

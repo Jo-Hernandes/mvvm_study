@@ -7,7 +7,6 @@ class SearchPokemon (private val repository : DataService) {
 
 
     fun getPokemonSprite(pokemonName : String, urlResponse : Consumer<String>, error : Consumer<Throwable>) {
-
         repository.findPokemon(pokemonName)
             .map { it.sprites.frontDefault }
             .subscribe(urlResponse, error)

@@ -19,24 +19,26 @@ class MainViewModel (private val searchUseCase : SearchPokemon) : ViewModel () {
     }
 
     fun onTextChanged(query: Editable) {
-        if (query.isNullOrBlank()) {
+        if (query.isBlank()) {
             textChangeSubject.onNext("")
         } else {
             textChangeSubject.onNext(query.toString())
         }
     }
 
-    fun queryChangeObserver() : Observable<String> {
+    private fun queryChangeObserver() : Observable<String> {
         return textChangeSubject.debounce(200, TimeUnit.MILLISECONDS).distinctUntilChanged()
     }
 
-    fun consumeString () : Consumer<String> = Consumer{
+    private fun consumeString () : Consumer<String> = Consumer{
         searchUseCase.getPokemonSprite(it, consumePokemonUrl(), consumeException())
     }
 
-    fun consumePokemonUrl () : Consumer<String> = Consumer {
-        Log.d("POKEMON ULR ", it)
+    private fun consumePokemonUrl () : Consumer<String> = Consumer {
+        Log.d("AUERY", it)
     }
 
-    fun consumeException () : Consumer<Throwable> = Consumer {  }
+    private fun consumeException () : Consumer<Throwable> = Consumer {
+        it.printStackTrace()
+    }
 }
